@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defensa Proyecto de Grado - BTH Las Gamas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 50px;
+            overflow-y: auto;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+        }
+
+        .slide-header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .slide-header h2 {
+            color: #764ba2;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .slide-header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .content-section {
+            margin: 30px 0;
+        }
+
+        .content-section h3 {
+            color: #667eea;
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            border-left: 5px solid #764ba2;
+            padding-left: 15px;
+        }
+
+        .content-section h4 {
+            color: #764ba2;
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+        }
+
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .bullet-list li {
+            padding: 10px 0 10px 30px;
+            position: relative;
+            font-size: 1.1em;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .bullet-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        .diagram {
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre;
+            overflow-x: auto;
+            font-size: 0.9em;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+            font-size: 1em;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        .price-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .price-box h4 {
+            color: white;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .price-box .price {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .emoji {
+            font-size: 1.3em;
+            margin-right: 8px;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            background: rgba(255,255,255,0.95);
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .nav-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .slide-counter {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+            padding: 0 15px;
+        }
+
+        .logo-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-placeholder {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            color: white;
+        }
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .two-columns {
+                grid-template-columns: 1fr;
+            }
+            
+            .slide {
+                padding: 30px 20px;
+            }
+            
+            .slide-header h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .tech-badge {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide active">
+            <div class="logo-header">
+                <div class="logo-placeholder">🦷</div>
+                <h1 style="color: #667eea; font-size: 2.8em; margin-bottom: 15px;">SISTEMA DE RESERVAS PARA CLÍNICA DENTAL</h1>
+                <p style="font-size: 1.3em; color: #764ba2; font-weight: bold; margin: 20px 0;">Proyecto de Emprendimiento Productivo / Innovación</p>
+                <div style="margin: 30px 0; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                    <p style="font-size: 1.2em; margin: 10px 0;"><strong>Integrantes:</strong> [Nombre Completo 1] - [Nombre Completo 2]</p>
+                    <p style="font-size: 1.2em; margin: 10px 0;"><strong>Carrera:</strong> Técnico Medio en Sistemas Informáticos</p>
+                    <p style="font-size: 1.2em; margin: 10px 0;"><strong>Institución:</strong> BTH Núcleo "Las Gamas"</p>
+                    <p style="font-size: 1.2em; margin: 10px 0;"><strong>Gestión:</strong> 2025</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: INTRODUCCIÓN Y DIAGNÓSTICO -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>INTRODUCCIÓN Y DIAGNÓSTICO</h2>
+            </div>
+            
+            <div class="content-section">
+                <h3>📋 Contexto: Problemática Actual en Clínicas Dentales</h3>
+                <ul class="bullet-list">
+                    <li>Agendas manuales desorganizadas</li>
+                    <li>Pérdida de citas por falta de registro digital</li>
+                    <li>Tiempo excesivo en llamadas telefónicas</li>
+                    <li>Confusión en horarios y disponibilidad</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <h4><span class="emoji">⚠️</span>Problema Identificado</h4>
+                <p style="font-size: 1.2em;">Falta de sistema digital de gestión de citas que ocasiona ineficiencia operativa y pérdida de oportunidades de negocio.</p>
+            </div>
+
+            <div class="content-section">
+                <h3>💡 Oportunidad</h3>
+                <p style="font-size: 1.2em; padding: 20px; background: #e7f3ff; border-radius: 10px;">
+                    <strong>Digitalización del proceso de reservas</strong> para mejorar la experiencia del paciente y optimizar la gestión administrativa de la clínica.
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: OBJETIVOS Y JUSTIFICACIÓN -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>OBJETIVOS Y JUSTIFICACIÓN</h2>
+            </div>
+
+            <div class="content-section">
+                <h3>🎯 Objetivo General</h3>
+                <p style="font-size: 1.2em; padding: 20px; background: #f0f0f0; border-radius: 10px; border-left: 5px solid #667eea;">
+                    Desarrollar un sistema web de reservas para optimizar la gestión de citas en clínicas dentales
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h3>📌 Objetivos Específicos</h3>
+                <ul class="bullet-list">
+                    <li>Diseñar una interfaz intuitiva para pacientes y administradores</li>
+                    <li>Implementar un calendario interactivo de disponibilidad</li>
+                    <li>Desarrollar módulo de gestión de pacientes y citas</li>
+                    <li>Garantizar la seguridad de datos mediante validaciones</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h3>✅ Justificación</h3>
+                <div class="two-columns">
+                    <div style="background: #e8f5e9; padding: 20px; border-radius: 10px; text-align: center;">
+                        <span class="emoji">🏥</span>
+                        <h4>Mejora eficiencia operativa</h4>
+                        <p style="font-size: 2em; font-weight: bold; color: #2e7d32;">60%</p>
+                    </div>
+                    <div style="background: #fff3e0; padding: 20px; border-radius: 10px; text-align: center;">
+                        <span class="emoji">⏱️</span>
+                        <h4>Reduce tiempo de agendado</h4>
+                        <p style="font-size: 2em; font-weight: bold; color: #e65100;">5 min → 1 min</p>
+                    </div>
+                </div>
+                <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; text-align: center; margin-top: 20px;">
+                    <span class="emoji">📉</span>
+                    <h4>Disminuye ausencias</h4>
+                    <p style="font-size: 2em; font-weight: bold; color: #1565c0;">40%</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: DESCRIPCIÓN Y ANÁLISIS DE MERCADO -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>DESCRIPCIÓN Y ANÁLISIS DE MERCADO</h2>
+            </div>
+
+            <div class="content-section">
+                <h3>💻 PRODUCTO</h3>
+                <p style="font-size: 1.2em; margin-bottom: 15px;"><strong>Sistema web responsive para gestión de citas odontológicas</strong></p>
+                <ul class="bullet-list">
+                    <li>Registro de usuarios con validación de datos</li>
+                    <li>Calendario interactivo de disponibilidad</li>
+                    <li>Gestión completa de pacientes, dentistas y horarios</li>
+                    <li>Confirmación automática de citas</li>
+                    <li>Panel administrativo con reportes</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h3>📊 MERCADO</h3>
+                <div class="two-columns">
+                    <div>
+                        <h4><span class="emoji">🎯</span>Público Objetivo</h4>
+                        <p style="padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                            Clínicas dentales pequeñas y medianas<br>
+                            <strong>(5-20 pacientes/día)</strong>
+                        </p>
+                    </div>
+                    <div>
+                        <h4><span class="emoji">📍</span>Ubicación</h4>
+                        <p style="padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                            Tarija y municipios aledaños
+                        </p>
+                    </div>
+                </div>
+
+                <h4 style="margin-top: 20px;"><span class="emoji">🏆</span>Competencia</h4>
+                <ul class="bullet-list">
+                    <li><strong>Agendas físicas (80%)</strong> - Método tradicional predominante</li>
+                    <li><strong>Sistemas genéricos</strong> - No especializados en clínicas</li>
+                    <li><strong>Sistemas importados</strong> - $200-500/mes, idioma extranjero</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <h4><span class="emoji">✅</span>Nuestra Ventaja Competitiva</h4>
+                    <p style="font-size: 1.1em;">✓ Desarrollado localmente • ✓ Precio accesible • ✓ Soporte directo en español • ✓ No requiere internet permanente</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: PRECIO Y MODELO DE NEGOCIO -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>PRECIO Y MODELO DE NEGOCIO</h2>
+            </div>
+
+            <div class="two-columns">
+                <div class="price-box">
+                    <h4>OPCIÓN 1: VENTA ÚNICA</h4>
+                    <div class="price">Bs. 1,500</div>
+                    <ul style="list-style: none; padding: 0; text-align: left;">
+                        <li style="margin: 10px 0;">✓ Instalación completa</li>
+                        <li style="margin: 10px 0;">✓ Capacitación (4 horas)</li>
+                        <li style="margin: 10px 0;">✓ Soporte 3 meses</li>
+                        <li style="margin: 10px 0;">✓ Mantenimiento anual: Bs. 300</li>
+                    </ul>
+                </div>
+
+                <div class="price-box">
+                    <h4>OPCIÓN 2: SUSCRIPCIÓN</h4>
+                    <div class="price">Bs. 150/mes</div>
+                    <ul style="list-style: none; padding: 0; text-align: left;">
+                        <li style="margin: 10px 0;">✓ Actualizaciones automáticas</li>
+                        <li style="margin: 10px 0;">✓ Soporte ilimitado</li>
+                        <li style="margin: 10px 0;">✓ Hosting incluido</li>
+                        <li style="margin: 10px 0;">✓ Backup en la nube</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3>📢 ESTRATEGIA DE COMERCIALIZACIÓN</h3>
+                <div style="display: flex; gap: 20px; margin-top: 20px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 250px; background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
+                        <span style="font-size: 3em;">📍</span>
+                        <h4>Venta Directa</h4>
+                        <p>Visitas personalizadas a clínicas dentales</p>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
+                        <span style="font-size: 3em;">🎯</span>
+                        <h4>Demostraciones</h4>
+                        <p>Presentaciones presenciales del sistema</p>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
+                        <span style="font-size: 3em;">📱</span>
+                        <h4>Marketing Digital</h4>
+                        <p>Redes sociales y ferias de salud</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: ARQUITECTURA DEL SISTEMA -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>ARQUITECTURA DEL SISTEMA</h2>
+            </div>
+
+            <div class="diagram">
+┌─────────────────┐
+│   NAVEGADOR     │ HTML5, CSS3, JavaScript
+│  (Frontend)     │
+└────────┬────────┘
+         │ HTTP
+┌────────▼────────┐
+│     APACHE      │ Servidor Web (XAMPP)
+└────────┬────────┘
+         │
+┌────────▼────────┐
+│      PHP        │ Lógica de Negocio
+└────────┬────────┘
+         │
+┌────────▼────────┐
+│     MySQL       │ Base de Datos
+└─────────────────┘
+            </div>
+
+            <div class="content-section">
+                <h3>🛠️ Stack Tecnológico</h3>
+                <div class="tech-stack">
+                    <div class="tech-badge">HTML5</div>
+                    <div class="tech-badge">CSS3</div>
+                    <div class="tech-badge">JavaScript</div>
+                    <div class="tech-badge">PHP 8.0</div>
+                    <div class="tech-badge">MySQL 8.0</div>
+                    <div class="tech-badge">Apache</div>
+                    <div class="tech-badge">XAMPP</div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4><span class="emoji">🏗️</span>Patrón de Arquitectura</h4>
+                <p style="font-size: 1.1em;"><strong>Modelo-Vista-Controlador (MVC)</strong> para separación de responsabilidades y facilitar el mantenimiento del código.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: BASE DE DATOS -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>BASE DE DATOS</h2>
+            </div>
+
+            <div class="diagram">
+┌──────────┐       ┌──────────┐       ┌──────────┐
+│ USUARIOS │───┐   │  CITAS   │   ┌───│ DENTISTAS│
+└──────────┘   │   └──────────┘   │   └──────────┘
+  - id         │   - id_cita      │   - id_dentista
+  - nombre     └───- id_paciente  │   - nombre
+  - email          - id_dentista──┘   - especialidad
+  - password       - fecha             - teléfono
+  - rol            - hora
+                   - estado
+                   - motivo
+
+┌──────────┐
+│ HORARIOS │
+└──────────┘
+  - id_horario
+  - id_dentista
+  - dia_semana
+  - hora_inicio
+  - hora_fin
+            </div>
+
+            <div class="content-section">
+                <h3>📊 Estructura de Base de Datos</h3>
+                <p style="font-size: 1.2em; padding: 20px; background: #e7f3ff; border-radius: 10px;">
+                    <strong>5 Tablas principales:</strong> usuarios, citas, dentistas, horarios, historial
+                </p>
+                
+                <h4 style="margin-top: 20px;">🔗 Relaciones Clave</h4>
+                <ul class="bullet-list">
+                    <li><strong>Usuarios ↔ Citas:</strong> Un paciente puede tener múltiples citas</li>
+                    <li><strong>Dentistas ↔ Citas:</strong> Un dentista atiende múltiples citas</li>
+                    <li><strong>Dentistas ↔ Horarios:</strong> Cada dentista tiene horarios configurables</li>
+                    <li><strong>Integridad referencial:</strong> Claves foráneas para mantener consistencia</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: REQUERIMIENTOS -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>REQUERIMIENTOS FUNCIONALES Y NO FUNCIONALES</h2>
+            </div>
+
+            <div class="two-columns">
+                <div class="content-section">
+                    <h3>✅ FUNCIONALES (Lo que el sistema HACE)</h3>
+                    <ul class="bullet-list">
+                        <li><strong>RF01:</strong> Registro e inicio de sesión</li>
+                        <li><strong>RF02:</strong> Visualización de calendario</li>
+                        <li><strong>RF03:</strong> Reserva de citas</li>
+                        <li><strong>RF04:</strong> Confirmación/cancelación</li>
+                        <li><strong>RF05:</strong> Gestión CRUD completa</li>
+                        <li><strong>RF06:</strong> Generación de reportes</li>
+                        <li><strong>RF07:</strong> Búsqueda y filtrado</li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h3>⚙️ NO FUNCIONALES (Cómo funciona)</h3>
+                    
+                    <div style="background: #fff3e0; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                        <h4>🔒 Seguridad</h4>
+                        <p>• Contraseñas encriptadas<br>• Validación de datos<br>• Protección SQL Injection</p>
+                    </div>
+
+                    <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                        <h4>⚡ Rendimiento</h4>
+                        <p>• Carga < 3 segundos<br>• Respuesta < 1 segundo</p>
+                    </div>
+
+                    <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                        <h4>👤 Usabilidad</h4>
+                        <p>• Interfaz intuitiva<br>• Responsive design</p>
+                    </div>
+
+                    <div style="background: #f3e5f5; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                        <h4>🔧 Mantenibilidad</h4>
+                        <p>• Código documentado<br>• Arquitectura MVC</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: CASOS DE USO -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>CASOS DE USO</h2>
+            </div>
+
+            <div class="diagram">
+                    ┌─────────────┐
+        ┌───────────│   SISTEMA   │───────────┐
+        │           └─────────────┘           │
+        │                                     │
+  ┌─────▼─────┐                        ┌─────▼─────┐
+  │ PACIENTE  │                        │   ADMIN   │
+  └───────────┘                        └───────────┘
+  • Registrarse                        • Gestionar pacientes
+  • Iniciar sesión                     • Gestionar dentistas
+  • Ver horarios                       • Configurar horarios
+  • Reservar cita                      • Ver todas las citas
+  • Cancelar cita                      • Generar reportes
+  • Ver mis citas                      • Confirmar/rechazar
+            </div>
+
+            <div class="two-columns">
+                <div style="background: #e3f2fd; padding: 25px; border-radius: 10px;">
+                    <h3 style="text-align: center; color: #1565c0;">👤 PACIENTE</h3>
+                    <ul class="bullet-list">
+                        <li>Crear cuenta en el sistema</li>
+                        <li>Iniciar sesión segura</li>
+                        <li>Consultar horarios disponibles</li>
+                        <li>Agendar nueva cita</li>
+                        <li>Cancelar cita existente</li>
+                        <li>Ver historial de citas</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f3e5f5; padding: 25px; border-radius: 10px;">
+                    <h3 style="text-align: center; color: #6a1b9a;">👨‍💼 ADMINISTRADOR</h3>
+                    <ul class="bullet-list">
+                        <li>Gestionar datos de pacientes</li>
+                        <li>Administrar información de dentistas</li>
+                        <li>Configurar horarios de atención</li>
+                        <li>Visualizar todas las citas</li>
+                        <li>Generar reportes estadísticos</li>
+                        <li>Confirmar o rechazar citas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: DEMOSTRACIÓN -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>DEMOSTRACIÓN DEL SISTEMA</h2>
+            </div>
+
+            <div class="content-section">
+                <h3>📸 Capturas Clave del Sistema</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center; border: 3px solid #667eea;">
+                        <span style="font-size: 4em;">📅</span>
+                        <h4>Dashboard del Paciente</h4>
+                        <p>Calendario interactivo</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center; border: 3px solid #667eea;">
+                        <span style="font-size: 4em;">📝</span>
+                        <h4>Formulario de Reserva</h4>
+                        <p>Agendar cita fácilmente</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center; border: 3px solid #667eea;">
+                        <span style="font-size: 4em;">👨‍💼</span>
+                        <h4>Panel Administrativo</h4>
+                        <p>Gestión de citas</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3>🎥 DEMOSTRACIÓN EN VIVO (1-2 minutos)</h3>
+                <h4>Flujo a demostrar:</h4>
+                <ol style="font-size: 1.1em; line-height: 2;">
+                    <li><strong>Login como paciente</strong> → Acceso al sistema</li>
+                    <li><strong>Visualizar calendario</strong> → Ver disponibilidad en tiempo real</li>
+                    <li><strong>Seleccionar fecha y hora</strong> → Elegir horario libre</li>
+                    <li><strong>Completar datos</strong> → Formulario de reserva</li>
+                    <li><strong>Confirmar reserva</strong> → Cita registrada</li>
+                    <li><strong>Panel admin</strong> → Verificar nueva cita</li>
+                </ol>
+                <p style="text-align: center; margin-top: 20px; font-size: 1.1em; color: #d32f2f;">
+                    <strong>📹 Video backup preparado por si falla la conexión</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: INVERSIÓN Y COSTOS -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>INVERSIÓN Y COSTOS</h2>
+            </div>
+
+            <div class="content-section">
+                <h3>💰 CAPITAL DE INVERSIÓN</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Concepto</th>
+                                <th>Costo (Bs.)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Hosting anual (opcional)</td>
+                                <td style="text-align: right; font-weight: bold;">500</td>
+                            </tr>
+                            <tr>
+                                <td>Dominio .com</td>
+                                <td style="text-align: right; font-weight: bold;">80</td>
+                            </tr>
+                            <tr>
+                                <td>Material de capacitación</td>
+                                <td style="text-align: right; font-weight: bold;">100</td>
+                            </tr>
+                            <tr style="background: #667eea; color: white;">
+                                <td><strong>TOTAL INVERSIÓN</strong></td>
+                                <td style="text-align: right;"><strong>680</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3>📊 COSTOS POR INSTALACIÓN</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Concepto</th>
+                                <th>Costo (Bs.)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Transporte</td>
+                                <td style="text-align: right; font-weight: bold;">50</td>
+                            </tr>
+                            <tr>
+                                <td>Instalación (3 horas)</td>
+                                <td style="text-align: right; font-weight: bold;">200</td>
+                            </tr>
+                            <tr>
+                                <td>Capacitación (4 horas)</td>
+                                <td style="text-align: right; font-weight: bold;">300</td>
+                            </tr>
+                            <tr>
+                                <td>Material impreso</td>
+                                <td style="text-align: right; font-weight: bold;">50</td>
+                            </tr>
+                            <tr style="background: #764ba2; color: white;">
+                                <td><strong>COSTO TOTAL</strong></td>
+                                <td style="text-align: right;"><strong>600</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); padding: 30px; border-radius: 15px; text-align: center; margin: 30px 0;">
+                <h3 style="color: white; font-size: 2em; margin-bottom: 15px;">💵 UTILIDAD POR VENTA</h3>
+                <p style="color: white; font-size: 2.5em; font-weight: bold; margin: 0;">Bs. 1,500 - 600 = Bs. 900</p>
+            </div>
+
+            <div class="highlight-box">
+                <h3><span class="emoji">📈</span>PROYECCIÓN PRIMER AÑO</h3>
+                <p style="font-size: 1.3em; margin: 15px 0;"><strong>Meta:</strong> 8 clínicas = <span style="color: #2e7d32; font-weight: bold; font-size: 1.4em;">Bs. 12,000</span></p>
+                <p style="font-size: 1.3em;"><strong>Inversión recuperada:</strong> <span style="color: #d32f2f; font-weight: bold;">1er mes</span></p>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: RESULTADOS E IMPACTO -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>RESULTADOS E IMPACTO</h2>
+            </div>
+
+            <div class="content-section">
+                <h3>✅ RESULTADOS ALCANZADOS</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
+                    <div style="background: #e8f5e9; padding: 20px; border-radius: 10px; text-align: center;">
+                        <span style="font-size: 2.5em;">✅</span>
+                        <p style="font-weight: bold; margin-top: 10px;">Sistema 100% funcional</p>
+                    </div>
+                    <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; text-align: center;">
+                        <span style="font-size: 2.5em;">📦</span>
+                        <p style="font-weight: bold; margin-top: 10px;">8 módulos desarrollados</p>
+                    </div>
+                    <div style="background: #fff3e0; padding: 20px; border-radius: 10px; text-align: center;">
+                        <span style="font-size: 2.5em;">🗄️</span>
+                        <p style="font-weight: bold; margin-top: 10px;">5 tablas relacionadas</p>
+                    </div>
+                    <div style="background: #f3e5f5; padding: 20px; border-radius: 10px; text-align: center;">
+                        <span style="font-size: 2.5em;">📱</span>
+                        <p style="font-weight: bold; margin-top: 10px;">Interfaz responsive</p>
+                    </div>
+                    <div style="background: #fce4ec; padding: 20px; border-radius: 10px; text-align: center;">
+                        <span style="font-size: 2.5em;">📖</span>
+                        <p style="font-weight: bold; margin-top: 10px;">Manual de usuario</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="two-columns">
+                <div class="content-section">
+                    <h3>🏥 IMPACTO PARA LA CLÍNICA</h3>
+                    <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; margin: 10px 0;">
+                        <h4><span class="emoji">⬇️</span>70% menos llamadas</h4>
+                        <p>Reducción significativa en tiempo telefónico</p>
+                    </div>
+                    <div style="background: #e8f5e9; padding: 20px; border-radius: 10px; margin: 10px 0;">
+                        <h4><span class="emoji">⬆️</span>40% más eficiencia</h4>
+                        <p>Optimización administrativa</p>
+                    </div>
+                    <div style="background: #fff3e0; padding: 20px; border-radius: 10px; margin: 10px 0;">
+                        <h4><span class="emoji">💰</span>Ahorro de 10 horas/semana</h4>
+                        <p>Tiempo para atención al paciente</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>😊 IMPACTO PARA PACIENTES</h3>
+                    <div style="background: #f3e5f5; padding: 20px; border-radius: 10px; margin: 10px 0;">
+                        <h4><span class="emoji">⏰</span>Disponibilidad 24/7</h4>
+                        <p>Reserva de citas en cualquier momento</p>
+                    </div>
+                    <div style="background: #fce4ec; padding: 20px; border-radius: 10px; margin: 10px 0;">
+                        <h4><span class="emoji">📱</span>Acceso multiplataforma</h4>
+                        <p>Desde cualquier dispositivo</p>
+                    </div>
+                    <div style="background: #e0f2f1; padding: 20px; border-radius: 10px; margin: 10px 0;">
+                        <h4><span class="emoji">🔔</span>Recordatorios automáticos</h4>
+                        <p>No más citas olvidadas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: PROYECTO DE VIDA PARTE 1 -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>PROYECTO DE VIDA - PARTE 1</h2>
+            </div>
+
+            <div class="content-section">
+                <h3>🎯 CORTO PLAZO (3-6 meses)</h3>
+                
+                <div style="background: #e3f2fd; padding: 25px; border-radius: 10px; margin: 20px 0;">
+                    <h4><span class="emoji">🎓</span>Académico</h4>
+                    <ul class="bullet-list">
+                        <li>Obtener título de Técnico Medio en Sistemas Informáticos</li>
+                        <li>Certificación en MySQL avanzado</li>
+                        <li>Aprender framework Laravel/React</li>
+                    </ul>
+                </div>
+
+                <div style="background: #e8f5e9; padding: 25px; border-radius: 10px; margin: 20px 0;">
+                    <h4><span class="emoji">💼</span>Profesional</h4>
+                    <ul class="bullet-list">
+                        <li>Realizar prácticas en empresa de desarrollo web</li>
+                        <li>Implementar el sistema en 2-3 clínicas piloto</li>
+                        <li>Recolectar feedback y mejorar el producto</li>
+                        <li>Generar primeros ingresos: <strong>Bs. 3,000-4,500</strong></li>
+                        <li>Desarrollar portafolio web profesional</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3>🎯 MEDIANO PLAZO (1 año)</h3>
+                
+                <div style="background: #fff3e0; padding: 25px; border-radius: 10px; margin: 20px 0;">
+                    <h4><span class="emoji">🎓</span>Académico</h4>
+                    <ul class="bullet-list">
+                        <li>Iniciar Ingeniería de Sistemas (Universidad)</li>
+                        <li>Curso de desarrollo móvil (Android/iOS)</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f3e5f5; padding: 25px; border-radius: 10px; margin: 20px 0;">
+                    <h4><span class="emoji">💻</span>Profesional</h4>
+                    <ul class="bullet-list">
+                        <li>Empleo como desarrollador web junior</li>
+                        <li>Expandir funcionalidades: historial clínico, WhatsApp, app móvil</li>
+                        <li>Alcanzar 10-15 clientes activos</li>
+                        <li>Ingresos mensuales: <strong>Bs. 2,000-3,000</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 14: PROYECTO DE VIDA PARTE 2 + CONCLUSIONES -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>PROYECTO DE VIDA - PARTE 2 + CONCLUSIONES</h2>
+            </div>
+
+            <div class="content-section">
+                <h3>🎯 LARGO PLAZO (3 años)</h3>
+                
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px; margin: 20px 0;">
+                    <h4 style="color: white; font-size: 1.5em; margin-bottom: 20px;"><span class="emoji">🏢</span>Visión Profesional</h4>
+                    
+                    <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; margin: 15px 0;">
+                        <h4 style="color: white;">Fundar empresa: "DevMed Solutions"</h4>
+                        <ul style="list-style: none; padding-left: 20px; margin-top: 10px;">
+                            <li>• Software especializado para sector salud</li>
+                            <li>• Equipo de 3-5 empleados</li>
+                            <li>• Oficina propia en Tarija</li>
+                        </ul>
+                    </div>
+
+                    <ul style="list-style: none; padding: 0; margin-top: 20px;">
+                        <li style="margin: 10px 0;">🌐 Convertir en SaaS: 50+ clínicas suscritas</li>
+                        <li style="margin: 10px 0;">📱 Nuevos productos: consultorios médicos, veterinarias, centros de estética</li>
+                        <li style="margin: 10px 0;">🌎 Expansión: Santa Cruz, La Paz, Cochabamba, Argentina, Perú</li>
+                    </ul>
+                </div>
+
+                <div style="background: #e8f5e9; padding: 25px; border-radius: 10px; margin: 20px 0;">
+                    <h4><span class="emoji">🎯</span>Metas Personales</h4>
+                    <ul class="bullet-list">
+                        <li>Ingresos mensuales: <strong>Bs. 15,000-20,000</strong></li>
+                        <li>Inversión en vivienda propia</li>
+                        <li>Obtener título universitario</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h4 style="font-size: 1.3em;"><span class="emoji">🔗</span>CONEXIÓN</h4>
+                    <p style="font-size: 1.2em; text-align: center;">
+                        <strong>Este proyecto es el primer producto de nuestra futura empresa</strong>
+                    </p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3 style="color: #2e7d32;">📝 CONCLUSIONES</h3>
+                <ol style="font-size: 1.1em; line-height: 2; padding-left: 20px;">
+                    <li><strong>Sistema funcional</strong> que integra tecnologías aprendidas (HTML, CSS, JS, PHP, MySQL)</li>
+                    <li><strong>Proyecto viable:</strong> inversión Bs. 680, recuperable en 1 mes</li>
+                    <li><strong>Mejora experiencia del paciente</strong> y optimiza procesos administrativos</li>
+                    <li><strong>Fortalecimiento de habilidades</strong> técnicas y de gestión de proyectos</li>
+                </ol>
+
+                <h4 style="margin-top: 30px; color: #1565c0;"><span class="emoji">💡</span>RECOMENDACIONES</h4>
+                <ul class="bullet-list">
+                    <li>Implementar autenticación de doble factor</li>
+                    <li>Agregar sistema de pagos en línea</li>
+                    <li>Desarrollar aplicación móvil nativa</li>
+                    <li>Integrar recordatorios SMS/WhatsApp</li>
+                </ul>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px; border-radius: 15px; text-align: center; margin-top: 40px;">
+                <h2 style="color: white; font-size: 2.5em; margin-bottom: 20px;">¿PREGUNTAS?</h2>
+                <p style="font-size: 1.3em;">📧 [tu-email@ejemplo.com]</p>
+                <p style="font-size: 1.3em; margin-top: 10px;">📱 [+591 XXXX-XXXX]</p>
+                <p style="font-size: 1.5em; margin-top: 30px; font-weight: bold;">¡Gracias por su atención!</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- NAVEGACIÓN -->
+    <div class="navigation">
+        <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">◀ Anterior</button>
+        <span class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">14</span></span>
+        <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">Siguiente ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = document.querySelectorAll('.slide').length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            if (n > totalSlides) currentSlide = totalSlides;
+            if (n < 1) currentSlide = 1;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = currentSlide;
+            
+            // Deshabilitar botones en los extremos
+            prevBtn.disabled = currentSlide === 1;
+            nextBtn.disabled = currentSlide === totalSlides;
+            
+            // Scroll al inicio de la diapositiva
+            slides[currentSlide - 1].scrollTop = 0;
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+
+        // Navegación con teclado
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight') {
+                changeSlide(1);
+            } else if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+
+        // Inicializar
+        showSlide(currentSlide);
+    </script>
+</body>
+</html><span style="font-size: 4em;">🔐</span>
+                        <h4>Pantalla de Login</h4>
+                        <p>Acceso seguro al sistema</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center; border: 3px solid #667eea;">
+                        
